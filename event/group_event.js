@@ -26,7 +26,7 @@ module.exports = joinhandler = async (data, sock) => {
     if (data.action === "add" && !data.participants.includes(myID)) {
     for (let num of data.participants) {
         try {
-    ppuser = await sock.profilePictureUrl(num, 'image')
+    ppuser = await sock.profilePictureUrl(num.participants[0], 'image')
     } catch {
     ppuser = 'https://i0.wp.com/www.gambarunik.id/wp-content/uploads/2019/06/Top-Gambar-Foto-Profil-Kosong-Lucu-Tergokil-.jpg'
     }
@@ -54,7 +54,7 @@ module.exports = joinhandler = async (data, sock) => {
     } else if (data.action === "remove" && !data.participants.includes(myID)) {
     for (let num of data.participants) {
         try {
-    ppuser = await sock.profilePictureUrl(num, 'image')
+    ppuser = await sock.profilePictureUrl(num.participants[0], 'image')
     } catch {
     ppuser = 'https://i0.wp.com/www.gambarunik.id/wp-content/uploads/2019/06/Top-Gambar-Foto-Profil-Kosong-Lucu-Tergokil-.jpg'
     }
