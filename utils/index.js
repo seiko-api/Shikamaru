@@ -10,7 +10,7 @@ const webp = require('webp-converter');
 const { downloadContentFromMessage, proto } = require("@adiwajshing/baileys");
 const { fromBuffer } = require('file-type');
 const { join } = require('path');
-const { openWeather } = require("../config.json");
+const openWeather = `165981ac317290045be3eb0df4ee0c3a`
 const { sizeFormatter } = require("human-readable");
 
 // Exports from other
