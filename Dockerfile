@@ -26,6 +26,8 @@ RUN npm install
 
 RUN npm install yt-search
 
+#RUN npm install @adiwajshing/baileys@4.0.1
+
 #RUN npm audit fix
 
 #RUN npm install -g npm-check-updates
@@ -40,12 +42,14 @@ WORKDIR /rafzz
 
 COPY . /rafzz
 
-RUN python3 -m pip install -r /rafzz/requirements.txt
+RUN python3 -m pip install -r /wbot/requirements.txt
 
 ENV TZ=Asia/Jakarta
 
 RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
 
 RUN ls
+
 EXPOSE 5000
+
 CMD ["npm", "run", "start"]
