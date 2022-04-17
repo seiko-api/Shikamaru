@@ -1,5 +1,4 @@
 const Downloader = require('../../utils/downloader')
-const fetch = require('node-fetch');
 const { yt } = new Downloader();
 const { fetchText, textParse, fetchBuffer } = require('../../utils');
 const lang = require('../other/text.json');
