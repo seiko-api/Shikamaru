@@ -1,0 +1,113 @@
+const djs = require("@discordjs/collection")
+
+module.exports = {
+    name: "help",
+    alias: ["h", "cmd", "menu"],
+    category: "general",
+    async exec(msg, sock, args) {
+    const more = String.fromCharCode(8206)
+    const readmore = more.repeat(4001)
+        if (args[0]) {
+            const data = [];
+            const name = args[0].toLowerCase();
+            const { commands, prefix } = djs;
+            const cmd = commands.get(name) || commands.find((cmd) => cmd.alias && cmd.alias.includes(name));
+            if (!cmd || cmd.category === "private") return await msg.reply("No command found");
+            else data.push(cmd.name);
+            if (cmd.alias) data.push(`*Alias:* ${cmd.alias.join(', ')}`);
+            if (cmd.desc) data.push(`*Description:* ${cmd.desc}`);
+            if (cmd.use) data.push(`*Usage:* ${prefix}${cmd.name} ${cmd.use}\n\nNote: [] = optional, | = or, <> = must filled`);
+
+            return await msg.reply(data.join('\n'));
+        } else {
+            const { pushName, sender } = msg;
+            const { prefix, commands } = djs;
+            const cmds = commands.keys()
+            let category = [];
+
+            for (let cmd of cmds) {
+                let info = commands.get(cmd);
+                if (!cmd) continue;
+                if (!info.category || info.category === 'private') continue;
+                if (Object.keys(category).includes(info.category)) category[info.category].push(info);
+                else {
+                    category[info.category] = [];
+                    category[info.category].push(info);
+                }
+            }
+let str = `Hello, ${pushName === undefined ? sender.split("@")[0] : pushName} *Here My Command List*
+
+Follow me on :
+Github : seikonub
+Instagram : @rafvnss
+${readmore}
+*DOWNLOADER*
+• ${prefix}fb
+• ${prefix}igdl
+• ${prefix}play
+• ${prefix}tiktok
+• ${prefix}twitter
+• ${prefix}ytmp3
+• ${prefix}ytmp4
+• ${prefix}ytsearch
+
+*GENERAL*
+• ${prefix}moji
+• ${prefix}help
+• ${prefix}igstalk
+• ${prefix}meme
+• ${prefix}nowm
+• ${prefix}sticker
+• ${prefix}smeme
+• ${prefix}swm
+• ${prefix}toimg
+
+*GROUP*
+• ${prefix}welcome
+• ${prefix}left
+• ${prefix}setwelcome
+• ${prefix}setleft
+• ${prefix}promote
+• ${prefix}demote
+• ${prefix}groupinfo
+• ${prefix}gcset
+• ${prefix}tagall
+• ${prefix}vote
+
+*INFORMATION*
+• ${prefix}brainly
+• ${prefix}cuaca
+• ${prefix}wiki
+
+*MISC*
+• ${prefix}del
+• ${prefix}inspect
+• ${prefix}ping
+• ${prefix}retrieve
+• ${prefix}stats
+• ${prefix}tr
+• ${prefix}upload
+
+*RANDOM*
+• ${prefix}bin
+• ${prefix}kata
+
+*WEEBS*
+• ${prefix}char
+• ${prefix}search
+• ${prefix}neko
+• ${prefix}yuri
+• ${prefix}megumin
+• ${prefix}waifu`
+            const keys = Object.keys(category);
+            await sock.sendMessage(msg.from, {
+                text: str,
+                footer: `send ${prefix}help followed by a command name to get detail of command, e.g. ${prefix}help sticker`,
+                templateButtons: [
+                    { quickReplyButton: {displayText: 'Owner', id: `${prefix}owner`}},
+                    { quickReplyButton: {displayText: 'Status', id: `${prefix}stats`}}
+                ]
+            }, { quoted: msg })
+        }
+    }
+}
