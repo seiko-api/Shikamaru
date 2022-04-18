@@ -113,6 +113,10 @@ const fetchBuffer = async (url, config = { skipSSL: false, fixAudio: false }) =>
   }
 });
 
+exports.sleep = async (ms) => {
+    return new Promise(resolve => setTimeout(resolve, ms));
+}
+
 exports.getBuffer = getBuffer = async (url) => {
     const res = await fetch(url, {headers: { 'User-Agent': 'okhttp/4.5.0'}, method: 'GET' })
     const anu = fs.readFileSync('./src/emror.jpg')
