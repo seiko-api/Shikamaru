@@ -1,4 +1,4 @@
-const { sleep } = require("../lib/sleep");
+const { sleep } = require("../../utils");
 module.exports = {
     name: "broadcast",
     alias: ['bcc'],
